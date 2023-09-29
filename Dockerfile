@@ -53,29 +53,18 @@ ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH} \
 ENV NVIDIA_VISIBLE_DEVICES=all \
     NVIDIA_DRIVER_CAPABILITIES=compute,utility \
     NVIDIA_REQUIRE_CUDA="cuda>=10.1 brand=tesla,driver>=384,driver<385 brand=tesla,driver>=410,driver<411 brand=tesla,driver>=418,driver<419 brand=tesla,driver>=439,driver<441"
-#COPY . ./TrWebOCR
+COPY . ./TrWebOCR
 RUN sed -i 's#http://deb.debian.org#https://mirrors.163.com#g' /etc/apt/sources.list \
     && apt update && apt install -y libglib2.0-dev libsm6 libxrender1 libxext-dev supervisor build-essential python3-pip \
     && rm -rf /var/lib/apt/lists/* \
     && python3 -m pip install --upgrade pip
-#    && python3 -m pip install -r ./TrWebOCR/requirements.txt
-#    && python3 ./TrWebOCR/install.py
-
-
-COPY . ./TrWebOCR
+    && python3 -m pip install -r ./TrWebOCR/requirements.txt
 
 RUN python3 -m pip install -r ./TrWebOCR/requirements.txt
 
 RUN apt update && apt install -y libcublas10 
-#EXPORT PATH=$PATH:/usr/local/cuda-10.2/lib64
 EXPOSE 8089
 CMD ["supervisord","-c","/TrWebOCR/supervisord.conf"]
-
-####
-#   env LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-10.2/lib64 python3 /TrWebOCR/backend/main.py --open_gpu=1
-####
-#CMD ["python3","/TrWebOCR/backend/main.py","--open_gpu=1"]
-
 
 
 #CMD ["env", "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-10.2/lib64", ""]
