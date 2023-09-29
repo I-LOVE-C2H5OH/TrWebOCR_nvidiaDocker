@@ -1,0 +1,5 @@
+libtorch
+numpy
+opencv-python
+Pillow
+tornado
