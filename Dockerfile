@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 LABEL description="Base docker image with CUDA 10.1 and cuDNN 7.6 for developing and performing compute in containers on NVIDIA GPU."
 LABEL maintainer="Vlad Klim, vladsklim@gmail.com"
 
