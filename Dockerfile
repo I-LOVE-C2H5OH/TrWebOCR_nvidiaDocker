@@ -57,7 +57,7 @@ COPY . ./TrWebOCR
 RUN sed -i 's#http://deb.debian.org#https://mirrors.163.com#g' /etc/apt/sources.list \
     && apt update && apt install -y libglib2.0-dev libsm6 libxrender1 libxext-dev supervisor build-essential python3-pip \
     && rm -rf /var/lib/apt/lists/* \
-    && python3 -m pip install --upgrade pip
+    && python3 -m pip install --upgrade pip \
     && python3 -m pip install -r ./TrWebOCR/requirements.txt
 
 RUN python3 -m pip install -r ./TrWebOCR/requirements.txt
